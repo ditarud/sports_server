@@ -1,0 +1,24 @@
+steps:
+  # Build Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/sports-server-dev', '.']
+
+  # Push image to Google Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/sports-server-dev']
+
+  # Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args:
+      [
+        'run', 'deploy', 'sports-server-dev',
+        '--image=gcr.io/$PROJECT_ID/sports-server-dev',
+        '--region=us-central1',
+        '--platform=managed',
+        '--allow-unauthenticated'
+      ]
+
+# Define the image that was built
+images:
+  - 'gcr.io/$PROJECT_ID/sports-server-dev'
