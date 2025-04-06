@@ -22,3 +22,6 @@ steps:
 # Define the image that was built
 images:
   - 'gcr.io/$PROJECT_ID/sports-server-prod'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
