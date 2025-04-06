@@ -7,19 +7,18 @@ export default defineConfig({
     sourceType: 'module',
   },
   extends: [
-    'plugin:@typescript-eslint/recommended', // Reglas recomendadas para TypeScript
-    'eslint:recommended', // Reglas recomendadas por ESLint
-    'plugin:prettier/recommended', // Configuración de Prettier
+    'plugin:@typescript-eslint/recommended',
+    'eslint:recommended',
+    'plugin:prettier/recommended',
   ],
   plugins: ['@typescript-eslint'],
   rules: {
-    // Puedes personalizar las reglas aquí
     '@typescript-eslint/no-unsafe-assignment': 'warn',
     '@typescript-eslint/no-unsafe-call': 'warn',
     '@typescript-eslint/no-unsafe-member-access': 'warn',
-    'no-console': 'warn', // Te avisa si usas console.log
-    'prettier/prettier': 'error', // Fuerza las reglas de Prettier
-    'no-explicit-any': 'off', // Si prefieres permitir "any", desactívalo
+    'no-console': 'warn',
+    'prettier/prettier': 'error',
+    'no-explicit-any': 'off',
   },
   env: {
     node: true,
