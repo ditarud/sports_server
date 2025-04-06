@@ -1,35 +1,28 @@
-// @ts-check
-import eslint from '@eslint/js';
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
-import globals from 'globals';
-import tseslint from 'typescript-eslint';
+import { defineConfig } from 'eslint-define-config';
 
-export default tseslint.config(
-  {
-    ignores: ['eslint.config.mjs'],
+export default defineConfig({
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 2020,
+    sourceType: 'module',
   },
-  eslint.configs.recommended,
-  ...tseslint.configs.recommendedTypeChecked,
-  eslintPluginPrettierRecommended,
-  {
-    languageOptions: {
-      globals: {
-        ...globals.node,
-        ...globals.jest,
-      },
-      ecmaVersion: 5,
-      sourceType: 'module',
-      parserOptions: {
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
+  extends: [
+    'plugin:@typescript-eslint/recommended', // Reglas recomendadas para TypeScript
+    'eslint:recommended', // Reglas recomendadas por ESLint
+    'plugin:prettier/recommended', // Configuración de Prettier
+  ],
+  plugins: ['@typescript-eslint'],
+  rules: {
+    // Puedes personalizar las reglas aquí
+    '@typescript-eslint/no-unsafe-assignment': 'warn',
+    '@typescript-eslint/no-unsafe-call': 'warn',
+    '@typescript-eslint/no-unsafe-member-access': 'warn',
+    'no-console': 'warn', // Te avisa si usas console.log
+    'prettier/prettier': 'error', // Fuerza las reglas de Prettier
+    'no-explicit-any': 'off', // Si prefieres permitir "any", desactívalo
   },
-  {
-    rules: {
-      '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-floating-promises': 'warn',
-      '@typescript-eslint/no-unsafe-argument': 'warn'
-    },
+  env: {
+    node: true,
+    es2020: true,
   },
-);
+});
